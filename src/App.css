@@ -1,0 +1,55 @@
+body {
+  background-color: #0e141b;
+}
+
+.app {
+  max-width: 600px;
+  margin: 0 auto;
+  background: url("./assets/images/bg-top-right.svg") right top, url("./assets/images/bg-bottom-left.svg") left bottom;
+  background-color: #f5f7fb;
+  background-repeat: no-repeat;
+  height: 100vh;
+  max-height: 700px;
+}
+
+.initialize {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-title {
+  color: #293264;
+  /* font-family: Karla; */
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.game-description {
+  color: #293264;
+  font-family: Inter;
+  margin-bottom: 30px;
+}
+
+.start-btn {
+  padding: 16px 60px;
+  color: #F5F7FB;
+  font-family: Inter;
+  font-size: 20px;
+  font-weight: 500;
+  background-color: #23317b;
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.start-btn:hover {
+  background-color: #4d5b9e;
+  transform: translateY(2px);
+  box-shadow: none;
+}
