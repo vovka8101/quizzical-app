@@ -3,15 +3,8 @@ import './App.css'
 import { InitializeApp } from './components/InitializeApp';
 import { Quiz } from './components/Quiz';
 import axios from 'axios';
+import { TSettings } from './assets/types/quizzical.types';
 
-// TODO: Quiz settings; API request with Axios
-
-type TSettings = {
-  amount: number
-  category?: number
-  difficulty?: 'easy' | 'medium' | 'hard'
-  type?: 'boolean' | 'multiple'
-}
 
 type TData = Omit<TSettings, "amount"> & {
   correct_answer: string
@@ -24,7 +17,7 @@ type TResponse = {
   results: TData[]
 }
 
-const quiz_settings: TSettings = {
+const initial_settings: TSettings = {
   amount: 5,
 }
 
@@ -36,33 +29,36 @@ const request_instance = {
 
 const BASE_URL = 'https://opentdb.com/api.php?';
 
+
 function App() {
   const [start, setStart] = useState(false);
-  const [questions, setQuestions] = useState<TData[]>([])
+  const [questions, setQuestions] = useState<TData[]>([]);
+  const [settings, setSettings] = useState<TSettings>(initial_settings);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   function getUrlParameters<TSettings>(parameters: TSettings): string {
-    let result_url = '';
+    const result_url = [];
 
     for (const key in parameters) {
-      if (result_url) {
-        result_url += '&';
+      if (parameters[key]) {
+        result_url.push(key + '=' + parameters[key]);
       }
-      result_url += key + '=' + parameters[key];
     }
 
-    return result_url;
+    console.log(questions);
+
+    return result_url.join('&');
   }
 
   useEffect(() => {
     if (start) {
-      const url_parameters = getUrlParameters(quiz_settings);
+      const url_parameters = getUrlParameters(settings);
       axios
         .get<TResponse>(BASE_URL + url_parameters, request_instance)
-        .then((response) => {
-          if (response.data.response_code === 0) {
-            setQuestions(response.data.results);
+        .then(({ data }) => {
+          if (data.response_code === 0) {
+            setQuestions(data.results);
           } else {
             setError("Wrong parameters were passed");
           }
@@ -83,7 +79,7 @@ function App() {
         ?
         <Quiz loading={loading} error={error} />
         :
-        <InitializeApp setStart={setStart} />}
+        <InitializeApp setSettings={setSettings} setStart={setStart} />}
     </div>
   )
 }

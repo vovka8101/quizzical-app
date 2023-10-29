@@ -31,8 +31,73 @@ body {
 .game-description {
   color: #293264;
   font-family: Inter;
+  margin-bottom: 10px;
+}
+
+
+/* #region settings */
+.settings-form {
+  width: 300px;
   margin-bottom: 30px;
 }
+
+.form-container {
+  padding: 12px 12px 6px;
+  background-color: #a0ccff;
+}
+
+.input-container {
+  margin-bottom: 14px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.input {
+  width: 100%;
+  outline: none;
+}
+
+.select-category {
+  display: block;
+}
+
+.setting-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.setting-btn {
+  width: 30%;
+  padding: 6px;
+  font-size: 1rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.submit-btn {
+  color: white;
+  background-color: #1677ff;
+}
+.submit-btn:hover {
+  background-color: #4096ff;
+}
+
+.reset-btn {
+  border-color: #002b3b;
+}
+.reset-btn:hover {
+  color: #4096ff;
+  border-color: #00749f;
+}
+/* #endregion */
 
 .start-btn {
   padding: 16px 60px;
