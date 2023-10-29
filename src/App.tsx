@@ -46,10 +46,10 @@ function App() {
       }
     }
 
-    console.log(questions);
-
     return result_url.join('&');
   }
+
+  console.log(questions);
 
   useEffect(() => {
     if (start) {

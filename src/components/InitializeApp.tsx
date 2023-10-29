@@ -16,9 +16,9 @@ type TOption = {
 
 export const InitializeApp = ({ setSettings, setStart }: InitializeAppProps) => {
   const [questionNumber, setQuestionNumber] = useState(setting_parameters.amount);
-  const [selectedCategory, setSelectedCategory] = useState<number | undefined>(setting_parameters.category.selected);
-  const [selectedDifficulty, setSelectedDifficulty] = useState<string | undefined>(setting_parameters.difficulty.selected);
-  const [selectedType, setSelectedType] = useState<string | undefined>(setting_parameters.type.selected);
+  const [selectedCategory, setSelectedCategory] = useState<number>();
+  const [selectedDifficulty, setSelectedDifficulty] = useState<TSettings['difficulty']>();
+  const [selectedType, setSelectedType] = useState<TSettings['type']>();
   
 
   return (
@@ -53,7 +53,7 @@ export const InitializeApp = ({ setSettings, setStart }: InitializeAppProps) => 
             <Select
               options={setting_parameters.difficulty.options}
               placeholder='Any Difficulty'
-              onChange={(option: TOption | null) => {
+              onChange={(option: { value: TSettings['difficulty'], label: string } | null) => {
                 setSelectedDifficulty(option?.value);
               }}
             />
@@ -63,7 +63,7 @@ export const InitializeApp = ({ setSettings, setStart }: InitializeAppProps) => 
             <Select
               options={setting_parameters.type.options}
               placeholder='Any Type'
-              onChange={(option: TOption | null) => {
+              onChange={(option: { value: TSettings['type'], label: string } | null) => {
                 setSelectedType(option?.value);
               }}
             />

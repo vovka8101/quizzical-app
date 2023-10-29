@@ -1,6 +1,6 @@
 export type TSettings = {
   amount: number
   category?: number
-  difficulty?: string
+  difficulty?: 'easy' | 'medium' | 'hard'
   type?: string
 }

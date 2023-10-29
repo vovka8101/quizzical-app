@@ -1,7 +1,19 @@
-export const setting_parameters = {
+type TParameters = {
+  amount: number,
+  category: {
+    options: { value: number, label: string }[]
+  },
+  difficulty: {
+    options: { value: 'easy' | 'medium' | 'hard', label: string }[]
+  },
+  type: {
+    options: { value: 'multiple' | 'boolean', label: string }[]
+  }
+}
+
+export const setting_parameters: TParameters = {
   amount: 10,
   category: {
-    selected: undefined,
     options: [
       { value: 9, label: 'General Knowledge' },
       { value: 10, label: 'Entertainment: Books' },
@@ -30,7 +42,6 @@ export const setting_parameters = {
     ]
   },
   difficulty: {
-    selected: undefined,
     options: [
       { value: 'easy', label: 'Easy' },
       { value: 'medium', label: 'Medium' },
@@ -38,7 +49,6 @@ export const setting_parameters = {
     ]
   },
   type: {
-    selected: undefined,
     options: [
       { value: 'multiple', label: 'Multiple Choice' },
       { value: 'boolean', label: 'True / False' }
