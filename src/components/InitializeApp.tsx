@@ -19,7 +19,7 @@ export const InitializeApp = ({ setSettings, setStart }: InitializeAppProps) => 
   const [selectedCategory, setSelectedCategory] = useState<number>();
   const [selectedDifficulty, setSelectedDifficulty] = useState<TSettings['difficulty']>();
   const [selectedType, setSelectedType] = useState<TSettings['type']>();
-  
+
 
   return (
     <div className='initialize'>
@@ -35,6 +35,7 @@ export const InitializeApp = ({ setSettings, setStart }: InitializeAppProps) => 
               type='number'
               className='number-input input'
               id='number'
+              onChange={(e) => setQuestionNumber(Number(e.target.value))}
               defaultValue={questionNumber}
             />
           </div>
@@ -69,21 +70,23 @@ export const InitializeApp = ({ setSettings, setStart }: InitializeAppProps) => 
             />
           </div>
         </fieldset>
+        <button
+          className='start-btn'
+          onClick={() => {
+            setSettings((oldSettings: TSettings): TSettings => {
+              return {
+                amount: questionNumber,
+                category: selectedCategory,
+                difficulty: selectedDifficulty,
+                type: selectedType
+              }
+            })
+            setStart(true)
+          }}
+        >
+          Start quiz
+        </button>
       </form>
-      <button
-        className='start-btn'
-        onClick={() => {
-          setSettings((oldSettings: TSettings): TSettings => {
-            return {
-              amount: questionNumber,
-              category: selectedCategory,
-              difficulty: selectedDifficulty,
-              type: selectedType
-            }
-          })
-          setStart(true) 
-        }}
-      >Start quiz</button>
     </div>
   )
 }

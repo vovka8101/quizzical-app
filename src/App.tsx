@@ -3,14 +3,8 @@ import './App.css'
 import { InitializeApp } from './components/InitializeApp';
 import { Quiz } from './components/Quiz';
 import axios from 'axios';
-import { TSettings } from './assets/types/quizzical.types';
+import { TSettings, TData } from './assets/types/quizzical.types';
 
-
-type TData = Omit<TSettings, "amount"> & {
-  correct_answer: string
-  incorrect_answers: string[]
-  question: string
-}
 
 type TResponse = {
   response_code: number
@@ -32,7 +26,7 @@ const BASE_URL = 'https://opentdb.com/api.php?';
 
 function App() {
   const [start, setStart] = useState(false);
-  const [questions, setQuestions] = useState<TData[]>([]);
+  const [data, setData] = useState<TData[]>([]);
   const [settings, setSettings] = useState<TSettings>(initial_settings);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -49,8 +43,6 @@ function App() {
     return result_url.join('&');
   }
 
-  console.log(questions);
-
   useEffect(() => {
     if (start) {
       const url_parameters = getUrlParameters(settings);
@@ -58,7 +50,7 @@ function App() {
         .get<TResponse>(BASE_URL + url_parameters, request_instance)
         .then(({ data }) => {
           if (data.response_code === 0) {
-            setQuestions(data.results);
+            setData(data.results);
           } else {
             setError("Wrong parameters were passed");
           }
@@ -77,7 +69,7 @@ function App() {
     <div className='app'>
       {start
         ?
-        <Quiz loading={loading} error={error} />
+        <Quiz loading={loading} error={error} data={data} />
         :
         <InitializeApp setSettings={setSettings} setStart={setStart} />}
     </div>
