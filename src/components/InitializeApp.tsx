@@ -9,24 +9,32 @@ type InitializeAppProps = {
   setStart: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-type TOption = {
-  value: string
-  label: string
-}
-
 export const InitializeApp = ({ setSettings, setStart }: InitializeAppProps) => {
   const [questionNumber, setQuestionNumber] = useState(setting_parameters.amount);
   const [selectedCategory, setSelectedCategory] = useState<number>();
   const [selectedDifficulty, setSelectedDifficulty] = useState<TSettings['difficulty']>();
   const [selectedType, setSelectedType] = useState<TSettings['type']>();
 
+  function handleStart(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    setSettings((oldSettings: TSettings): TSettings => {
+      return {
+        amount: questionNumber,
+        category: selectedCategory,
+        difficulty: selectedDifficulty,
+        type: selectedType
+      }
+    })
+    setStart(true)
+  }
 
   return (
     <div className='initialize'>
       <h1 className='main-title'>Quizzical</h1>
       <p className='game-description'>Some description</p>
 
-      <form className='settings-form'>
+      <form onSubmit={e => { handleStart(e) }} className='settings-form'>
         <fieldset className='form-container'>
           <legend className='settings-title'>Settings</legend>
           <div className='input-container'>
@@ -70,22 +78,7 @@ export const InitializeApp = ({ setSettings, setStart }: InitializeAppProps) => 
             />
           </div>
         </fieldset>
-        <button
-          className='start-btn'
-          onClick={() => {
-            setSettings((oldSettings: TSettings): TSettings => {
-              return {
-                amount: questionNumber,
-                category: selectedCategory,
-                difficulty: selectedDifficulty,
-                type: selectedType
-              }
-            })
-            setStart(true)
-          }}
-        >
-          Start quiz
-        </button>
+        <button className='start-btn submit'>Start quiz</button>
       </form>
     </div>
   )

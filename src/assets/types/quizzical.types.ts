@@ -6,13 +6,7 @@ export type TSettings = {
 }
 
 export type TData = Omit<TSettings, "amount"> & {
+  question: string
   correct_answer: string
   incorrect_answers: string[]
-  question: string
-}
-
-export type TAnswers = {
-  userAnswer: string
-  correctAnswer: string
-  wrongAnswers: string[]
 }

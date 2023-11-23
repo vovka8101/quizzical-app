@@ -37,6 +37,26 @@ body {
   font-family: Inter;
   margin-bottom: 10px;
 }
+
+.submit {
+  display: block;
+  color: #F5F7FB;
+  font-family: Inter;
+  font-size: 20px;
+  font-weight: 500;
+  background-color: #23317b;
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.submit:hover {
+  background-color: #4d5b9e;
+  transform: translateY(2px);
+  box-shadow: none;
+}
 /* #endregion */
 
 /* #region settings */
@@ -103,32 +123,15 @@ body {
 }
 
 .start-btn {
-  display: block;
   width: 70%;
-  margin: 20px auto 0;
+  margin: 20px auto;
   padding: 16px 0;
-  color: #F5F7FB;
-  font-family: Inter;
-  font-size: 20px;
-  font-weight: 500;
-  background-color: #23317b;
-  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.5);
-  border: none;
-  border-radius: 15px;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.start-btn:hover {
-  background-color: #4d5b9e;
-  transform: translateY(2px);
-  box-shadow: none;
 }
 /* #endregion */
 
 /* #region questions */
 .quiz {
-  max-width: 400px;
+  max-width: 460px;
   margin: 40px auto;
 }
 
@@ -170,6 +173,15 @@ body {
 
 .answer-input {
   display: none;
+}
+
+.check-btn {
+  width: 150px;
+  margin: 0 auto;
+  padding: 10px 0;
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 /* #endregion */

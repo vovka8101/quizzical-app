@@ -1,8 +1,10 @@
-import { TAnswers, TData } from "../assets/types/quizzical.types"
+import { useEffect } from "react"
 
 type QuestionProp = {
-  quiz: TData
-  setUserAnswers: React.Dispatch<React.SetStateAction<TAnswers[] | undefined>>
+  question: string
+  correctAnswer: string
+  allAnswers: string[]
+  setCorrectCount: React.Dispatch<React.SetStateAction<number>>
 }
 
 function shuffle(array: string[]) {
@@ -13,19 +15,35 @@ function shuffle(array: string[]) {
   return array;
 }
 
-export const Question = ({ quiz, setUserAnswers }: QuestionProp) => {
-  function getRandomAnswers(answers: string[], question: string) {
-    const randomAnswers = shuffle(answers);
-    const answerElements = randomAnswers.map(answer => {
+export const Question = ({ question, allAnswers, correctAnswer, setCorrectCount }: QuestionProp) => {
+  useEffect(() => {
+    if (allAnswers) {
+      allAnswers = shuffle(allAnswers);
+    }
+  }, [])
+  
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    // TODO: check if correct, increment counter
+    if (e.target.value === correctAnswer) {
+      setCorrectCount(prevCount => prevCount + 1);
+    }
+  }
+
+  function getRandomAnswers() {
+    const answerElements = allAnswers.map(answer => {
       return (
-        <label key={answer} className='answer'>
+        <label
+          key={answer}
+          className='answer'
+        >
           <input
             className='answer-input'
             type='radio'
             name={question}
             value={answer}
+            onChange={e => { handleChange(e) }}
           />
-           <span dangerouslySetInnerHTML={{ __html: answer }}></span>
+          <span dangerouslySetInnerHTML={{ __html: answer }}></span>
         </label>
       )
     })
@@ -35,9 +53,9 @@ export const Question = ({ quiz, setUserAnswers }: QuestionProp) => {
 
   return (
     <div className='question'>
-      <h2 dangerouslySetInnerHTML={{ __html: quiz.question }} className='question__title'></h2>
+      <h2 dangerouslySetInnerHTML={question ? { __html: question } : undefined} className='question__title'></h2>
       <div className="answers">
-        {getRandomAnswers([...quiz.incorrect_answers, quiz.correct_answer], quiz.question)}
+        {getRandomAnswers()}
       </div>
     </div>
   )
