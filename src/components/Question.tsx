@@ -1,10 +1,12 @@
 import { useEffect } from "react"
+import { TUserAnswers } from "../assets/types/quizzical.types"
 
 type QuestionProp = {
   question: string
   correctAnswer: string
   allAnswers: string[]
-  setCorrectCount: React.Dispatch<React.SetStateAction<number>>
+  setUserAnswers: React.Dispatch<React.SetStateAction<TUserAnswers>>
+  showResults: boolean
 }
 
 function shuffle(array: string[]) {
@@ -15,32 +17,40 @@ function shuffle(array: string[]) {
   return array;
 }
 
-export const Question = ({ question, allAnswers, correctAnswer, setCorrectCount }: QuestionProp) => {
+export const Question = ({ question, allAnswers, correctAnswer, setUserAnswers, showResults }: QuestionProp) => {
   useEffect(() => {
-    if (allAnswers) {
+    if (allAnswers && (allAnswers.length > 2)) {
       allAnswers = shuffle(allAnswers);
     }
   }, [])
   
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     // TODO: check if correct, increment counter
-    if (e.target.value === correctAnswer) {
-      setCorrectCount(prevCount => prevCount + 1);
-    }
+    setUserAnswers((oldAnswers) => {
+      return {
+        ...oldAnswers,
+        [question]: e.target.value === correctAnswer ? true : false
+      }
+    })
   }
 
   function getRandomAnswers() {
     const answerElements = allAnswers.map(answer => {
+      let backlight = showResults ? ' incorrect-backlight' : '';
+      if (showResults && (answer === correctAnswer)) {
+        backlight = ' correct-backlight';
+      }
       return (
         <label
           key={answer}
-          className='answer'
+          className={'answer' + backlight}
         >
           <input
             className='answer-input'
             type='radio'
             name={question}
             value={answer}
+            disabled={showResults}
             onChange={e => { handleChange(e) }}
           />
           <span dangerouslySetInnerHTML={{ __html: answer }}></span>

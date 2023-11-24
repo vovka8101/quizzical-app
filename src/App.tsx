@@ -69,7 +69,7 @@ function App() {
     <div className='app'>
       {start
         ?
-        <Quiz loading={loading} error={error} data={data} />
+        <Quiz loading={loading} error={error} data={data} setStart={setStart} />
         :
         <InitializeApp setSettings={setSettings} setStart={setStart} />}
     </div>

@@ -1,22 +1,33 @@
 import { useState } from "react"
-import { TData } from "../assets/types/quizzical.types"
+import { TData, TUserAnswers } from "../assets/types/quizzical.types"
 import { Question } from "./Question"
 
 type QuizProps = {
   loading: boolean
   error: string
   data: TData[]
+  setStart: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const Quiz = ({ loading, error, data }: QuizProps) => {
+export const Quiz = ({ loading, error, data, setStart }: QuizProps) => {
   const [correctCount, setCorrectCount] = useState(0);
+  const [userAnswers, setUserAnswers] = useState<TUserAnswers>({})
   const [showResults, setShowResults] = useState(false);
 
 
   function handleCheckAnswers(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const correctAnswers = Object.values(userAnswers);
+    let count = 0;
+
+    correctAnswers.forEach(isCorrectAnswer => {
+      if (isCorrectAnswer) {
+        count += 1;
+      }
+    })
+
+    setCorrectCount(count);
     setShowResults(true);
-    console.log(correctCount);
   }
 
   return (
@@ -25,29 +36,34 @@ export const Quiz = ({ loading, error, data }: QuizProps) => {
         ?
         <div>Loading...</div>
         :
-        <form onSubmit={e => { handleCheckAnswers(e) }} className='quiz'>
+        <form onSubmit={e => { handleCheckAnswers(e) }} className="quiz">
           {data.map(quiz => {
-            const allAnswers = [...quiz.incorrect_answers, quiz.correct_answer];
+            const allAnswers = quiz.incorrect_answers.length === 1
+              ? ['True', 'False']
+              : [...quiz.incorrect_answers, quiz.correct_answer];
             return (
               <Question
                 key={quiz.question}
                 question={quiz.question}
                 correctAnswer={quiz.correct_answer}
                 allAnswers={allAnswers}
-                setCorrectCount={setCorrectCount}
+                setUserAnswers={setUserAnswers}
+                showResults={showResults}
               />
             )
           })}
           {showResults
             ?
-            <div className="score-containe">
+            <div className="score-container">
               <p className="score-text">
                 You scored {correctCount}/{data.length} correct answers
               </p>
-              <button className="play-again-btn submit">Play again</button>
+              <button className="play-again-btn submit" onClick={() => { setStart(false) }}>Play again</button>
             </div>
             :
-            <button className='check-btn submit'>Check answers</button>
+            <button
+              className="check-btn submit"
+              disabled={data.length !== Object.values(userAnswers).length}>Check answers</button>
           }
         </form>
       }

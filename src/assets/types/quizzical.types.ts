@@ -10,3 +10,7 @@ export type TData = Omit<TSettings, "amount"> & {
   correct_answer: string
   incorrect_answers: string[]
 }
+
+export type TUserAnswers = {
+  [key: string]: boolean
+}
