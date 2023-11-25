@@ -12,7 +12,7 @@ type TParameters = {
 }
 
 export const setting_parameters: TParameters = {
-  amount: 10,
+  amount: 5,
   category: {
     options: [
       { value: 9, label: 'General Knowledge' },

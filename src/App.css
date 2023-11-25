@@ -1,32 +1,57 @@
+/* #region fonts */
+@font-face {
+  font-family: 'Inter';
+  src: url(./assets/fonts/Inter-Regular.ttf);
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url(./assets/fonts/Inter-Medium.ttf);
+  font-weight: 500;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url(./assets/fonts/Inter-SemiBold.ttf);
+  font-weight: 600;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url(./assets/fonts/Inter-Bold.ttf);
+  font-weight: 700;
+}
+@font-face {
+  font-family: 'Karla';
+  src: url(./assets/fonts/Karla-Bold.ttf);
+  font-weight: 700;
+}
+/* #endregion */
+
 /* #region page */
 body {
   background-color: #0e141b;
+  font-family: 'Inter', sans-serif;
 }
 
 .app {
   max-width: 600px;
   margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: url("./assets/images/bg-top-right.svg") right top, url("./assets/images/bg-bottom-left.svg") left bottom;
   background-color: #f5f7fb;
   background-repeat: no-repeat;
   height: 100vh;
-  max-height: 700px;
+  min-height: 100vh;
   overflow: auto;
 }
 /* #endregion */
 
 /* #region main */
-.initialize {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .main-title {
   color: #293264;
-  /* font-family: Karla; */
+  font-family: 'Karla';
+  text-align: center;
   font-size: 36px;
   font-weight: 700;
   margin-bottom: 10px;
@@ -34,14 +59,15 @@ body {
 
 .game-description {
   color: #293264;
-  font-family: Inter;
+  text-align: center;
+  font-family: 'Inter';
   margin-bottom: 10px;
 }
 
 .submit {
   display: block;
   color: #F5F7FB;
-  font-family: Inter;
+  font-family: 'Inter';
   font-size: 20px;
   font-weight: 500;
   background-color: #23317b;
@@ -79,12 +105,20 @@ body {
   background-color: #a0ccff;
 }
 
+.settings-title {
+  font-family: 'Karla';
+  font-size: 18px;
+}
+
 .input-container {
   margin-bottom: 14px;
 }
 
 .label {
   display: block;
+  font-family: 'Inter';
+  font-size: 1em;
+  font-weight: 500;
   margin-bottom: 4px;
 }
 
@@ -138,11 +172,19 @@ body {
 }
 /* #endregion */
 
+/* #region errors */
+.error-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+/* #endregion */
+
 /* #region questions */
 .quiz {
   max-width: 460px;
   margin: 40px auto;
-  padding: 16px;
 }
 
 .question {
@@ -153,8 +195,8 @@ body {
 
 .question__title {
   color: #293264;
-  font-family: Karla;
-  font-size: 16px;
+  font-family: 'Inter';
+  font-size: 18px;
   font-weight: 700;
   margin-bottom: 16px;
 }
@@ -169,8 +211,8 @@ body {
   padding: 4px 8px;
   color: #293264;
   text-align: center;
-  font-family: Inter;
-  font-size: 10.24px;
+  font-family: 'Inter';
+  font-size: 12px;
   font-weight: 500;
   border: 1px solid #4d5b9e;
   border-radius: 8px;
@@ -208,7 +250,7 @@ body {
 .score-text {
   color: #293264;
   text-align: center;
-  font-family: Inter;
+  font-family: 'Inter';
   font-size: 14px;
   font-weight: 700;
 }
@@ -216,7 +258,7 @@ body {
 .play-again-btn {
   padding: 10px 26px;
   color: #F5F7FB;
-  font-family: Inter;
+  font-family: 'Inter';
   font-size: 12px;
   font-weight: 600;
 }
@@ -225,7 +267,7 @@ body {
   width: 150px;
   margin: 0 auto;
   padding: 10px 0;
-  font-family: Inter;
+  font-family: 'Inter';
   font-size: 12px;
   font-weight: 600;
 }

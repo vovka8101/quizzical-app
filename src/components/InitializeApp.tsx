@@ -9,6 +9,8 @@ type InitializeAppProps = {
   setStart: React.Dispatch<React.SetStateAction<boolean>>
 }
 
+// TODO: add form validation for number input
+
 export const InitializeApp = ({ setSettings, setStart }: InitializeAppProps) => {
   const [questionNumber, setQuestionNumber] = useState(setting_parameters.amount);
   const [selectedCategory, setSelectedCategory] = useState<number>();
@@ -18,13 +20,11 @@ export const InitializeApp = ({ setSettings, setStart }: InitializeAppProps) => 
   function handleStart(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    setSettings((oldSettings: TSettings): TSettings => {
-      return {
-        amount: questionNumber,
-        category: selectedCategory,
-        difficulty: selectedDifficulty,
-        type: selectedType
-      }
+    setSettings({
+      amount: questionNumber,
+      category: selectedCategory,
+      difficulty: selectedDifficulty,
+      type: selectedType
     })
     setStart(true)
   }

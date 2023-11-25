@@ -17,15 +17,19 @@ function shuffle(array: string[]) {
   return array;
 }
 
-export const Question = ({ question, allAnswers, correctAnswer, setUserAnswers, showResults }: QuestionProp) => {
+export const Question = ({
+  question,
+  allAnswers,
+  correctAnswer,
+  setUserAnswers,
+  showResults }: QuestionProp) => {
   useEffect(() => {
     if (allAnswers && (allAnswers.length > 2)) {
       allAnswers = shuffle(allAnswers);
     }
   }, [])
-  
+
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    // TODO: check if correct, increment counter
     setUserAnswers((oldAnswers) => {
       return {
         ...oldAnswers,

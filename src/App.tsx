@@ -11,9 +11,9 @@ type TResponse = {
   results: TData[]
 }
 
-const initial_settings: TSettings = {
-  amount: 5,
-}
+// const initial_settings: TSettings = {
+//   amount: 5,
+// }
 
 const request_instance = {
   headers: {
@@ -27,7 +27,7 @@ const BASE_URL = 'https://opentdb.com/api.php?';
 function App() {
   const [start, setStart] = useState(false);
   const [data, setData] = useState<TData[]>([]);
-  const [settings, setSettings] = useState<TSettings>(initial_settings);
+  const [settings, setSettings] = useState<TSettings | object>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -63,13 +63,13 @@ function App() {
         })
         .finally(() => { setLoading(false) })
     }
-  }, [start])
+  }, [start, settings])
 
   return (
     <div className='app'>
       {start
         ?
-        <Quiz loading={loading} error={error} data={data} setStart={setStart} />
+        <Quiz loading={loading} error={error} data={data} setStart={setStart} setError={setError} />
         :
         <InitializeApp setSettings={setSettings} setStart={setStart} />}
     </div>
