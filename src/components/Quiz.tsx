@@ -6,13 +6,12 @@ type QuizProps = {
   loading: boolean
   error: string
   data: TData[]
-  setStart: React.Dispatch<React.SetStateAction<boolean>>
-  setError: React.Dispatch<React.SetStateAction<string>>
+  handlePlayAgain: () => void
 }
 
 // TODO: add error handling
 
-export const Quiz = ({ loading, error, data, setStart, setError }: QuizProps) => {
+export const Quiz = ({ loading, error, data, handlePlayAgain }: QuizProps) => {
   const [correctCount, setCorrectCount] = useState(0);
   const [userAnswers, setUserAnswers] = useState<TUserAnswers>({})
   const [showResults, setShowResults] = useState(false);
@@ -31,12 +30,6 @@ export const Quiz = ({ loading, error, data, setStart, setError }: QuizProps) =>
 
     setCorrectCount(count);
     setShowResults(true);
-  }
-
-  function handlePlayAgain() {
-    // TODO: clear data from state
-    if (error) setError('');
-    setStart(false);
   }
 
   return (

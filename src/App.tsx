@@ -2,26 +2,8 @@ import { useEffect, useState } from 'react';
 import './App.css'
 import { InitializeApp } from './components/InitializeApp';
 import { Quiz } from './components/Quiz';
-import axios from 'axios';
 import { TSettings, TData } from './assets/types/quizzical.types';
-
-
-type TResponse = {
-  response_code: number
-  results: TData[]
-}
-
-// const initial_settings: TSettings = {
-//   amount: 5,
-// }
-
-const request_instance = {
-  headers: {
-    "Content-Type": "application/json"
-  },
-}
-
-const BASE_URL = 'https://opentdb.com/api.php?';
+import { getQuiz } from "./api/QuizAPI";
 
 
 function App() {
@@ -31,45 +13,41 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  function getUrlParameters<TSettings>(parameters: TSettings): string {
-    const result_url = [];
-
-    for (const key in parameters) {
-      if (parameters[key]) {
-        result_url.push(key + '=' + parameters[key]);
-      }
-    }
-
-    return result_url.join('&');
-  }
-
   useEffect(() => {
     if (start) {
-      const url_parameters = getUrlParameters(settings);
-      axios
-        .get<TResponse>(BASE_URL + url_parameters, request_instance)
-        .then(({ data }) => {
-          if (data.response_code === 0) {
-            setData(data.results);
-          } else {
-            setError("Wrong parameters were passed");
-          }
-        })
-        .catch(ex => {
-          const error = ex.code === 'ERR_NETWORK'
-            ? "Resource Not found"
-            : "An unexpected error has occurred";
-          setError(error);
-        })
-        .finally(() => { setLoading(false) })
+      const fetchGet = async () => {
+        try {
+          const result = await getQuiz(settings);
+          setData(result);
+        } catch (err) {
+          if (err instanceof Error) setError(err.message);
+        } finally {
+          setLoading(false);
+        }
+      }
+
+      fetchGet();
     }
   }, [start, settings])
 
+  function handlePlayAgain() {
+    if (error) setError("");
+    setData([]);
+    // setSettings({});
+    setStart(false);
+    setLoading(true);
+  }
+
   return (
-    <div className='app'>
+    <div className="app">
+      <div className="background-img-container"></div>
       {start
         ?
-        <Quiz loading={loading} error={error} data={data} setStart={setStart} setError={setError} />
+        <Quiz
+          loading={loading}
+          error={error} data={data}
+          handlePlayAgain={handlePlayAgain}
+        />
         :
         <InitializeApp setSettings={setSettings} setStart={setStart} />}
     </div>

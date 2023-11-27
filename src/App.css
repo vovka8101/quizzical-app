@@ -38,10 +38,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url("./assets/images/bg-top-right.svg") right top, url("./assets/images/bg-bottom-left.svg") left bottom;
-  background-color: #f5f7fb;
+  background: url("./assets/images/bg-top-right.svg") right top,
+              url("./assets/images/bg-bottom-left.svg") left bottom;
+  background-color: #e1e2e2;
   background-repeat: no-repeat;
-  height: 100vh;
   min-height: 100vh;
   overflow: auto;
 }
@@ -216,6 +216,7 @@ body {
   font-weight: 500;
   border: 1px solid #4d5b9e;
   border-radius: 8px;
+  user-select: none;
 }
 
 .answer.correct-backlight {

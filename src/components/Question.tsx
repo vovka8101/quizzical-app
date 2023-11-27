@@ -47,15 +47,17 @@ export const Question = ({
       return (
         <label
           key={answer}
-          className={'answer' + backlight}
+          className={"answer" + backlight}
+          onSelect={e => { e.preventDefault() }}
         >
           <input
-            className='answer-input'
-            type='radio'
+            className="answer-input"
+            type="radio"
             name={question}
             value={answer}
             disabled={showResults}
             onChange={e => { handleChange(e) }}
+            onSelect={e => { e.preventDefault() }}
           />
           <span dangerouslySetInnerHTML={{ __html: answer }}></span>
         </label>
@@ -66,8 +68,8 @@ export const Question = ({
   }
 
   return (
-    <div className='question'>
-      <h2 dangerouslySetInnerHTML={question ? { __html: question } : undefined} className='question__title'></h2>
+    <div className="question">
+      <h2 dangerouslySetInnerHTML={question ? { __html: question } : undefined} className="question__title"></h2>
       <div className="answers">
         {getRandomAnswers()}
       </div>

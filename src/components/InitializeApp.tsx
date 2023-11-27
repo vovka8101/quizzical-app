@@ -9,7 +9,7 @@ type InitializeAppProps = {
   setStart: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-// TODO: add form validation for number input
+// TODO: add form validation for number input; use previous settings when play again used 
 
 export const InitializeApp = ({ setSettings, setStart }: InitializeAppProps) => {
   const [questionNumber, setQuestionNumber] = useState(setting_parameters.amount);
@@ -30,55 +30,55 @@ export const InitializeApp = ({ setSettings, setStart }: InitializeAppProps) => 
   }
 
   return (
-    <div className='initialize'>
-      <h1 className='main-title'>Quizzical</h1>
-      <p className='game-description'>Some description</p>
+    <div className="initialize">
+      <h1 className="main-title">Quizzical</h1>
+      <p className="game-description">Some description</p>
 
-      <form onSubmit={e => { handleStart(e) }} className='settings-form'>
-        <fieldset className='form-container'>
-          <legend className='settings-title'>Settings</legend>
-          <div className='input-container'>
-            <label className='label' htmlFor='number'>Number of Questions:</label>
+      <form onSubmit={e => { handleStart(e) }} className="settings-form">
+        <fieldset className="form-container">
+          <legend className="settings-title">Settings</legend>
+          <div className="input-container">
+            <label className="label" htmlFor="number">Number of Questions:</label>
             <input
-              type='number'
-              className='number-input input'
-              id='number'
+              type="number"
+              className="number-input input"
+              id="number"
               onChange={(e) => setQuestionNumber(Number(e.target.value))}
               defaultValue={questionNumber}
             />
           </div>
-          <div className='input-container'>
-            <p className='label'>Select Category:</p>
+          <div className="input-container">
+            <p className="label">Select Category:</p>
             <Select
               options={setting_parameters.category.options}
-              placeholder='Any Category'
+              placeholder="Any Category"
               onChange={(option: { value: number, label: string } | null) => {
                 setSelectedCategory(option?.value);
               }}
             />
           </div>
-          <div className='input-container'>
-            <p className='label'>Select Difficulty:</p>
+          <div className="input-container">
+            <p className="label">Select Difficulty:</p>
             <Select
               options={setting_parameters.difficulty.options}
-              placeholder='Any Difficulty'
+              placeholder="Any Difficulty"
               onChange={(option: { value: TSettings['difficulty'], label: string } | null) => {
                 setSelectedDifficulty(option?.value);
               }}
             />
           </div>
-          <div className='input-container'>
-            <p className='label'>Select Type:</p>
+          <div className="input-container">
+            <p className="label">Select Type:</p>
             <Select
               options={setting_parameters.type.options}
-              placeholder='Any Type'
+              placeholder="Any Type"
               onChange={(option: { value: TSettings['type'], label: string } | null) => {
                 setSelectedType(option?.value);
               }}
             />
           </div>
         </fieldset>
-        <button className='start-btn submit'>Start quiz</button>
+        <button className="start-btn submit">Start quiz</button>
       </form>
     </div>
   )
