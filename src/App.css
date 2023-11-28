@@ -60,14 +60,12 @@ body {
 .game-description {
   color: #293264;
   text-align: center;
-  font-family: 'Inter';
   margin-bottom: 10px;
 }
 
 .submit {
   display: block;
   color: #F5F7FB;
-  font-family: 'Inter';
   font-size: 20px;
   font-weight: 500;
   background-color: #23317b;
@@ -82,6 +80,13 @@ body {
   background-color: #4d5b9e;
   transform: translateY(2px);
   box-shadow: none;
+}
+
+.preloader {
+  height: 200px;
+  width: 200px;
+  background: url(./assets/images/preloader.svg) no-repeat;
+  background-size: contain;
 }
 
 .answer.correct-backlight {
@@ -116,7 +121,6 @@ body {
 
 .label {
   display: block;
-  font-family: 'Inter';
   font-size: 1em;
   font-weight: 500;
   margin-bottom: 4px;
@@ -185,17 +189,18 @@ body {
 .quiz {
   max-width: 460px;
   margin: 40px auto;
+  padding-inline: 10px;
 }
 
 .question {
+  position: relative;
   padding-bottom: 15px;
-  border-bottom: 1px solid #dbdef0;
+  border-bottom: 1px solid #a4b1ff;
   margin-bottom: 15px;
 }
 
 .question__title {
   color: #293264;
-  font-family: 'Inter';
   font-size: 18px;
   font-weight: 700;
   margin-bottom: 16px;
@@ -211,12 +216,15 @@ body {
   padding: 4px 8px;
   color: #293264;
   text-align: center;
-  font-family: 'Inter';
   font-size: 12px;
   font-weight: 500;
   border: 1px solid #4d5b9e;
   border-radius: 8px;
   user-select: none;
+  cursor: pointer;
+}
+.answer:hover {
+  border: 1px solid transparent;
 }
 
 .answer.correct-backlight {
@@ -228,12 +236,37 @@ body {
   border: 1px solid #d6dbf5;
 }
 
-.answer.incorrect-backlight:has(.answer-input:checked) {
-  background-color: #f8bcbc;
+.answer:has(.answer-input:disabled) {
+  pointer-events: none;
 }
 
-.answer.answer.correct-backlight:has(.answer-input:checked) {
+.answer.correct-backlight:has(.answer-input:checked) {
   background-color: #94d7a2;
+}
+.answer.correct-backlight:has(.answer-input:checked)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 20px;
+  width: 20px;
+  background: url(./assets/images/check-mark.svg) no-repeat;
+  background-size: contain;
+}
+
+.answer.incorrect-backlight:has(.answer-input:checked) {
+  background-color: #f8bcbc;
+  opacity: 1;
+}
+.answer.incorrect-backlight:has(.answer-input:checked)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 14px;
+  width: 14px;
+  background: url(./assets/images/cross-mark.svg) no-repeat;
+  background-size: contain;
 }
 
 .answer-input {
@@ -251,15 +284,13 @@ body {
 .score-text {
   color: #293264;
   text-align: center;
-  font-family: 'Inter';
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
 }
 
 .play-again-btn {
   padding: 10px 26px;
   color: #F5F7FB;
-  font-family: 'Inter';
   font-size: 12px;
   font-weight: 600;
 }
@@ -268,7 +299,6 @@ body {
   width: 150px;
   margin: 0 auto;
   padding: 10px 0;
-  font-family: 'Inter';
   font-size: 12px;
   font-weight: 600;
 }

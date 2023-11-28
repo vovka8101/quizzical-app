@@ -36,7 +36,7 @@ export const Quiz = ({ loading, error, data, handlePlayAgain }: QuizProps) => {
     <>
       {loading
         ?
-        <div>Loading...</div>
+        <div className="preloader"></div>
         :
         error
           ?
@@ -46,16 +46,14 @@ export const Quiz = ({ loading, error, data, handlePlayAgain }: QuizProps) => {
           </div>
           :
           <form onSubmit={e => { handleCheckAnswers(e) }} className="quiz">
-            {data.map(quiz => {
-              const allAnswers = quiz.incorrect_answers.length === 1
-                ? ['True', 'False']
-                : [...quiz.incorrect_answers, quiz.correct_answer];
+            {data.map((quiz, idx) => {
               return (
                 <Question
                   key={quiz.question}
+                  qNumber={idx + 1}
                   question={quiz.question}
                   correctAnswer={quiz.correct_answer}
-                  allAnswers={allAnswers}
+                  allAnswers={quiz.allAnswers}
                   setUserAnswers={setUserAnswers}
                   showResults={showResults}
                 />

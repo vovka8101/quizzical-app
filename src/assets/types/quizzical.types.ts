@@ -9,6 +9,7 @@ export type TData = Omit<TSettings, "amount"> & {
   question: string
   correct_answer: string
   incorrect_answers: string[]
+  allAnswers?: string[]
 }
 
 export type TUserAnswers = {

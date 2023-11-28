@@ -1,33 +1,21 @@
-import { useEffect } from "react"
 import { TUserAnswers } from "../assets/types/quizzical.types"
 
 type QuestionProp = {
   question: string
+  qNumber: number
   correctAnswer: string
-  allAnswers: string[]
+  allAnswers: string[] | undefined
   setUserAnswers: React.Dispatch<React.SetStateAction<TUserAnswers>>
   showResults: boolean
 }
 
-function shuffle(array: string[]) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-}
-
 export const Question = ({
   question,
+  qNumber,
   allAnswers,
   correctAnswer,
   setUserAnswers,
   showResults }: QuestionProp) => {
-  useEffect(() => {
-    if (allAnswers && (allAnswers.length > 2)) {
-      allAnswers = shuffle(allAnswers);
-    }
-  }, [])
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setUserAnswers((oldAnswers) => {
@@ -38,8 +26,8 @@ export const Question = ({
     })
   }
 
-  function getRandomAnswers() {
-    const answerElements = allAnswers.map(answer => {
+  function getAnswers() {
+    const answerElements = allAnswers?.map(answer => {
       let backlight = showResults ? ' incorrect-backlight' : '';
       if (showResults && (answer === correctAnswer)) {
         backlight = ' correct-backlight';
@@ -69,9 +57,9 @@ export const Question = ({
 
   return (
     <div className="question">
-      <h2 dangerouslySetInnerHTML={question ? { __html: question } : undefined} className="question__title"></h2>
+      <h2 dangerouslySetInnerHTML={question ? { __html: qNumber + '. ' + question } : undefined} className="question__title"></h2>
       <div className="answers">
-        {getRandomAnswers()}
+        {getAnswers()}
       </div>
     </div>
   )
