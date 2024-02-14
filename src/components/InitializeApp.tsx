@@ -32,8 +32,9 @@ export const InitializeApp = ({ setSettings, setStart }: InitializeAppProps) => 
   return (
     <div className="initialize">
       <h1 className="main-title">Quizzical</h1>
-      <p className="game-description">Some description</p>
-
+      <p className="game-description">
+        This is a simple quizzical application based on "Open trivia database" API.
+      </p>
       <form onSubmit={e => { handleStart(e) }} className="settings-form">
         <fieldset className="form-container">
           <legend className="settings-title">Settings</legend>
